@@ -4,7 +4,6 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
-  Platform,
   TouchableHighlight,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
