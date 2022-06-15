@@ -11,22 +11,13 @@ import React, {useEffect, useState} from 'react';
 import SoundPlayer from 'react-native-sound-player';
 import {storeSound, getSound} from '../utils/storage';
 import RNFetchBlob from 'rn-fetch-blob';
+import {PlayerProps} from '../typedefs';
 
 const spotify = require('../assets/images/spotify.png');
 const playIcon = require('../assets/images/play.png');
 const pauseIcon = require('../assets/images/pause.png');
 
 const fs = RNFetchBlob.fs;
-
-type PlayerProps = {
-  params: {
-    id: string;
-    url: string;
-    title: string;
-    duration: string;
-    size: string;
-  };
-};
 
 const styles = StyleSheet.create({
   mainContainer: {flex: 1, backgroundColor: '#1B2430'},

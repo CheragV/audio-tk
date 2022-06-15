@@ -8,6 +8,7 @@ export const storeSound = async (id: string, value: string) => {
     await AsyncStorage.setItem(`${STORAGE_KEY}${id}`, jsonValue);
   } catch (e) {
     // saving error
+    console.log('Error saving file');
   }
 };
 

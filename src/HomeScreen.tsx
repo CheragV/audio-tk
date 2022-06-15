@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {Track} from '../typedefs';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const play = require('../assets/images/play-icon.png');
 
@@ -68,14 +70,14 @@ const tracks = [
   },
 ];
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+const HomeScreen: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
     <View>
       <FlatList
         data={tracks}
-        renderItem={({item}) => (
+        renderItem={({item}: {item: Track}): JSX.Element => (
           <TouchableHighlight
             key={item.id}
             style={styles.rowItem}
