@@ -20,6 +20,7 @@ export const loadSound = ({
   });
 
 export const calculateNewVolume = (yAxis: number) => {
+  /** sound range from 0 - 1.0 */
   let newVolume = 1 - Math.ceil((yAxis + 50) / 10) / 10;
   if (newVolume > 1) {
     newVolume = 1;
@@ -30,14 +31,12 @@ export const calculateNewVolume = (yAxis: number) => {
 };
 
 export const loadSoundPlayer = async ({
-  DING,
   title,
   setLoading,
   setDING,
   url,
   id,
 }: {
-  DING: Sound | undefined;
   title: string;
   setLoading: any;
   setDING: any;
@@ -46,10 +45,13 @@ export const loadSoundPlayer = async ({
 }) => {
   try {
     let soundBase64 = await getSound(id);
-    if (soundBase64 && !DING) {
+    let isExist = await fs.exists(`${fs.dirs.DownloadDir}/${title}.mp3`);
+
+    if (isExist) {
+      /** song is alreacy downloaded in files */
       setDING(loadSound({title, setLoading}));
     } else if (!soundBase64) {
-      // or play from url
+      /** song is not downloaded and we don't have the base64 string, we down from url */
       let soundPath = url;
       RNFetchBlob.config({
         fileCache: true,
@@ -69,9 +71,16 @@ export const loadSoundPlayer = async ({
           });
         });
     } else {
-      setDING(loadSound({title, setLoading}));
+      /** song is not downloaded and but we have the base64 string, we make a temp file and play from it */
+      fs.writeFile(
+        `${fs.dirs.DownloadDir}/${title}.mp3`,
+        soundBase64,
+        'base64',
+      ).then(() => {
+        setDING(loadSound({title, setLoading}));
+      });
     }
   } catch (e) {
-    console.log('cannot play the sound file', e);
+    console.log('cannot play the sound file 2', e);
   }
 };

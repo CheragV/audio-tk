@@ -6,7 +6,3 @@ export interface Track {
   size: string;
   icon: any;
 }
-
-export type PlayerProps = {
-  params: Track;
-};

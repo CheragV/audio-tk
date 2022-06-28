@@ -8,11 +8,8 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Sound from 'react-native-sound';
-import {storeSound, getSound} from '../utils/storage';
-import RNFetchBlob from 'rn-fetch-blob';
-import {loadSound, calculateNewVolume, loadSoundPlayer} from '../utils/sound';
-
-const fs = RNFetchBlob.fs;
+import {calculateNewVolume, loadSoundPlayer} from '../utils/sound';
+import {Track} from '../typedefs';
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -39,6 +36,13 @@ const PlayerScreen = ({
   setLoading,
   setPlaying,
   yAxis,
+}: {
+  track: Track;
+  playing: boolean;
+  loading: boolean;
+  setLoading: any;
+  setPlaying: any;
+  yAxis: number;
 }) => {
   const {id, url, title} = track;
   const [DING, setDING] = useState<Sound | undefined>();
